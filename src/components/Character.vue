@@ -18,7 +18,12 @@
 
 <script>
     export default {
-        props: ['character']
+        props: {
+            character: {
+                type: Object,
+                required: true
+            }
+        }
     }
 </script>
 

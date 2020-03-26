@@ -1,6 +1,8 @@
 <template>
     <div id="app" class="container mx-auto text-center">
-        <h1 class="text-4xl font-black">Characters from "Rick and Morty"</h1>
+        <div class="header">
+            <h1 class="text-4xl font-black">Characters from "Rick and Morty"</h1>
+        </div>
         <character-list/>
     </div>
 </template>
@@ -16,3 +18,10 @@
 </script>
 
 <style src="./assets/tailwind.css"/>
+
+<style>
+    .header {
+        display: block;
+        margin-top: 40px;
+    }
+</style>

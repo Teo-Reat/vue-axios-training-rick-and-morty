@@ -28,7 +28,5 @@
 </script>
 
 <style scoped>
-    .character:last-child {
-        margin-right: auto;
-    }
+
 </style>

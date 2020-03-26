@@ -1,15 +1,16 @@
 <template>
     <div>
-        <input type="text" v-model="search" @keyup="getFilteredList" class="rounded bg-gray-200 px-4 py-2">
-        <div>{{ search }}</div>
-        <app-pagination :pages-count="pagesCount" :page-num="pageNum" @changePage="fetchNumPage"></app-pagination>
-        <div class="text-6xl px-10 py-8 bg-red-200 border-red-400 rounded-lg" v-if="error">No results.</div>
-        <div class="flex">
-            <div class="flex justify-between flex-wrap">
-                <app-character :character="character" v-for="(character, key) in info" :key="key"></app-character>
+        <input type="text" v-model="params.name" @change="getList" class="rounded bg-gray-200 px-4 py-2">
+        <div class="text-6xl px-10 py-8 bg-red-200 border-red-400 rounded-lg" v-if="error">{{error}}</div>
+        <template v-if="data">
+            <app-pagination :pages-count="data.info.count" :page-num="params.page" @changePage="fetchNumPage"/>
+            <div class="flex">
+                <div class="flex justify-between flex-wrap">
+                    <app-character :character="character" v-for="(character, key) in data.results" :key="key"/>
+                </div>
             </div>
-        </div>
-        <app-pagination :pages-count="pagesCount" :page-num="pageNum" @changePage="fetchNumPage"></app-pagination>
+            <app-pagination :pages-count="data.info.count" :page-num="params.page" @changePage="fetchNumPage"/>
+        </template>
     </div>
 </template>
 
@@ -21,11 +22,12 @@
     export default {
         data() {
             return {
-                info: [],
-                pageNum: 1,
-                pagesCount: 0,
-                search: '',
-                error: 0,
+                data: null,
+                params: {
+                    page: 1,
+                    name: '',
+                },
+                error: '',
             }
         },
         components: {
@@ -34,46 +36,19 @@
         },
         mounted() {
             this.getList();
-            this.getPageCount();
         },
         methods: {
             getList() {
-                axios.get(`https://rickandmortyapi.com/api/character/?page=${this.pageNum}`)
-                    .then(response => (this.info = response.data.results));
-            },
-            getPageCount() {
-                axios.get('https://rickandmortyapi.com/api/character/')
-                    .then(response => (this.pagesCount = response.data.info.pages));
-            },
-            getFilteredList() {
-                axios.get(`https://rickandmortyapi.com/api/character/?name=${this.search}`)
-                    .then(response => (this.info = response.data.results))
-                    .catch(function (error) {
-                        if (error.response) {
-                            // The request was made and the server responded with a status code
-                            // that falls out of the range of 2xx
-                            console.log(error.response.data);
-                            console.log(error.response.status);
-                            console.log(error.response.headers);
-                        } else if (error.request) {
-                            // The request was made but no response was received
-                            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-                            // http.ClientRequest in node.js
-                            console.log(error.request);
-                        } else {
-                            // Something happened in setting up the request that triggered an Error
-                            console.log('Error', error.message);
-                        }
+                axios.get('https://rickandmortyapi.com/api/character/', {params: this.params})
+                    .then(response => (this.data = response.data))
+                    .catch((error) => {
+                        this.data = null;
+                        this.error = error.response.data.error;
                     });
-                this.$emit('filterByName');
-                this.getPageSearchCount();
-            },
-            getPageSearchCount() {
-                axios.get(`https://rickandmortyapi.com/api/character/?name=${this.search}`)
-                    .then(response => (this.pagesCount = response.data.info.pages));
+
             },
             fetchNumPage(index) {
-                this.pageNum = index + 1;
+                this.params.page = index + 1;
                 this.getList()
             },
         }

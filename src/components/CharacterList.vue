@@ -1,9 +1,13 @@
 <template>
     <div>
-        <input type="text" v-model="params.name" @change="getList" class="rounded bg-gray-200 px-4 py-2">
-        <div class="text-6xl px-10 py-8 bg-red-200 border-red-400 rounded-lg" v-if="error">{{error}}</div>
+        <input type="text"
+               v-model="params.name"
+               @change="getList"
+               @focus="params.page = 1"
+               placeholder="Search..."
+               class=" rounded bg-gray-300 px-4 py-2">
+        <div class="text-6xl px-10 py-8 bg-red-200 border-red-400 rounded-lg my-4" v-if="!data">{{error}}</div>
         <template v-if="data">
-            <app-pagination :pages-count="data.info.count" :page-num="params.page" @changePage="fetchNumPage"/>
             <div class="flex">
                 <div class="flex justify-between flex-wrap">
                     <app-character :character="character" v-for="(character, key) in data.results" :key="key"/>

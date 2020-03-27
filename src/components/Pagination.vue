@@ -1,6 +1,6 @@
 <template>
     <div class="inline-flex mb-10 mt-6">
-        <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l"
+        <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4"
                 @click="goToPage(0)">
             First
         </button>

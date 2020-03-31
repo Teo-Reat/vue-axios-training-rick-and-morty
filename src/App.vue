@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="container mx-auto text-center">
+    <div id="app" class="container mx-auto">
         <div class="header">
             <h1 class="text-4xl font-black">Characters from "Rick and Morty"</h1>
         </div>

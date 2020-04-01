@@ -1,11 +1,15 @@
 <template>
     <div>
-        <input type="text"
-               v-model="params.name"
-               @change="getList"
-               @focus="params.page = 1"
-               placeholder="Search..."
-               class=" rounded bg-gray-300 px-4 py-2">
+        <div class="mt-12">
+            <input type="text"
+                   v-model="params.name"
+                   @keydown.enter="getList"
+                   @focus="params.page = 1"
+                   placeholder="Enter character name here..."
+                   class="rounded-l bg-teal-300 px-4 py-2 w-76">
+            <button class="bg-teal-300 hover:bg-teal-400 text-teal-800 font-bold py-2 px-4 rounded-r"
+                    @click="getList">Search</button>
+        </div>
         <div class="text-6xl px-10 py-8 bg-red-200 border-red-400 rounded-lg my-4" v-if="!data">{{error}}</div>
         <template v-if="data">
             <div class="antialiased text-gray-900">

@@ -6,8 +6,8 @@
                    @keydown.enter="getList"
                    @focus="params.page = 1"
                    placeholder="Enter character name here..."
-                   class="rounded-l bg-teal-300 px-4 py-2 w-76">
-            <button class="bg-teal-300 hover:bg-teal-400 text-teal-800 font-bold py-2 px-4 rounded-r"
+                   class="rounded-l bg-gray-300 px-4 py-2 w-76">
+            <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r"
                     @click="getList">Search
             </button>
         </div>
@@ -19,7 +19,7 @@
                                    :load="load"/>
                 </div>
             </div>
-            <app-pagination :pages-count="data.info.count" :page-num="params.page" @changePage="fetchNumPage"/>
+            <app-pagination :pages-count="data.info.pages" :page-num="params.page" @changePage="fetchNumPage"/>
         </template>
     </div>
 </template>

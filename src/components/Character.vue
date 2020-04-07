@@ -1,6 +1,10 @@
 <template>
-    <div class="mt-16 mx-1 w-76" v-on:mouseenter="descriptionView = true" v-on:mouseleave="descriptionView = false">
-        <img class="h-64 w-full object-cover rounded-lg border shadow" :src="character.image" :alt="character.name"
+    <div class="mt-16 mx-1 w-76 cursor-pointer"
+         @mouseenter="descriptionView = true"
+         @mouseleave="descriptionView = false">
+        <img class="h-64 w-full object-cover rounded-lg border shadow"
+             :src="character.image"
+             :alt="character.name"
              :class="{isLoad:load}">
         <div class="p-2 relative">
             <div class="p-4 top-0 -mt-8 left-0 mr-4 right-0 ml-4 bg-white rounded-lg shadow absolute"

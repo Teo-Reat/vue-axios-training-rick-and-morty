@@ -3,18 +3,12 @@
         <div class="header">
             <h1 class="text-4xl font-black text-teal-900">Characters from "Rick and Morty"</h1>
         </div>
-        <character-list/>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-    import CharacterList from "./components/CharacterList";
 
-    export default {
-        components: {
-            CharacterList
-        }
-    }
 </script>
 
 <style src="./assets/tailwind.css"/>
